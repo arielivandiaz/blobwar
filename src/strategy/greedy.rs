@@ -14,7 +14,6 @@ impl fmt::Display for Greedy {
     }
 }
 
-
 impl Strategy for Greedy {
     fn compute_next_move(&mut self, state: &Configuration) -> Option<Movement> {
         if state.movements().next().is_some() {
@@ -22,7 +21,7 @@ impl Strategy for Greedy {
             let mut optimal_value: i8 = 127;
             let mut optimal_mouvement = state.movements().next();
 
-            let mut mouvements = Vec::new();
+            let mut history = Vec::New();
             // For each mouv we play it and we observe the value of the game
             for mov in state.movements() {
                 // Play a game will inverse the players, so skip_play is like a second inversion
@@ -32,13 +31,15 @@ impl Strategy for Greedy {
                     optimal_mouvement = Some(mov);
                     optimal_value = new_value;
 
-                    mouvements.push(optimal_mouvement);
+                    history.push(optimal_mouvement);
                 }
             }
-            for i in mouvements{
-                println!("{:?}",i );
+
+            for i in history{
+            	println!("{:?}",history );
             }
             // We return the best movement
+
             return optimal_mouvement;
         } else {
             return None;
